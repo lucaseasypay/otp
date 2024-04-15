@@ -125,25 +125,9 @@ class GoogleAuthenticator
      */
     public static function getQrCodeUrl($type, $label, $secret, $counter = null, $options = array())
     {
-        // Width and height can be overwritten
-        $width = self::$width;
-
-        if (array_key_exists('width', $options) && is_numeric($options['width'])) {
-            $width = $options['width'];
-        }
-
-        $height = self::$height;
-
-        if (array_key_exists('height', $options) && is_numeric($options['height'])) {
-            $height = $options['height'];
-        }
-
         $otpauth = self::getKeyUri($type, $label, $secret, $counter, $options);
 
-        $url = 'https://chart.googleapis.com/chart?chs=' . $width . 'x'
-             . $height . '&cht=qr&chld=M|0&chl=' . urlencode($otpauth);
-
-        return $url;
+        return 'https://qrcode.tec-it.com/API/QRCode?size=small&data='. urlencode($otpauth);
     }
 
     /**
